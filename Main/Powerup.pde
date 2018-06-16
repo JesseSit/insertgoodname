@@ -5,6 +5,7 @@ class Powerup {
   int col;  //color
   float diam;  //size
   
+  
   Powerup() {
     x = random(1,800);
     y = random(1,400);
@@ -14,16 +15,19 @@ class Powerup {
   }
   
   void display() {
-     ellipse(x, y, diam, diam);
      if (type == 0) {
-       fill(255, 0, 0); 
+       fill(255, 0, 0);
+       stroke(255, 0, 0);
      }
      if (type == 1) {
        fill(0, 255, 0);
+       stroke(0, 255, 0);
      }
      if (type == 2) {
        fill(0, 0, 255);
+       stroke(0, 0, 255);
      }
+     ellipse(x, y, diam, diam);
   }
   
   void power(Player p) {

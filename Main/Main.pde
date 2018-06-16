@@ -15,18 +15,21 @@ void setup() {
 
 void draw() {
   background(0, 0, 0); // set board color
+  fill(255, 255, 255);
   stroke(255, 255, 255);
   line(400, 0, 400, 400);
+  time = millis()/1000;
+  String Time = str(time);
+  textSize(60);
+  text(Time, 340, 70);
+  
   p1.move();
   p1.display();
   p2.move();
   p2.display();
   omega.display();
   
-  time = millis()/1000;
-  String Time = str(time);
-  textSize(60);
-  text(Time, 340, 70);
+
   
   spawner = int(random(2));
   if (spawner == 1) {
