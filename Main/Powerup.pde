@@ -1,23 +1,16 @@
 class Powerup {
   
   float x, y;  //coords
-  float diameter;  //size
-  int id;
+  int type;  //1,2, or 3 depending on which powerup
   int col;  //color
+  float diameter;  //size
   
-  
-  Ball(float xin, float yin, int idin, int colin) {
-     x = xin;
-     y = yin;
-     id = idin;
-     col = colin;
-  }
-  
-  Ball() {
-    x = 0;
-    y = 0;
-    id = 0;
-    col = 0;
+  Powerup() {
+    x = random(1,800);
+    y = random(1,400);
+    type = int(random(3));
+    col = type;
+    diameter = (type + 1) * 5;
   }
   
   void power() {
