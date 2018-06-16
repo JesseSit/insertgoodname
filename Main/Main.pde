@@ -3,6 +3,7 @@ Player p2;
 int time = 0;
 int spawner = 0;
 Powerup omega, alpha, delta;
+Ball b;
 
 void setup() {
   size(800, 400); //generate board
@@ -13,6 +14,7 @@ void setup() {
   omega = new Powerup();
   alpha = new Powerup();
   delta = new Powerup();
+  b = new Ball(random(350, 450), random(150, 250), 20);
 }
 
 void draw() {
@@ -32,6 +34,12 @@ void draw() {
   omega.display();
   alpha.display();
   delta.display();
+  
+  b.move();
+  b.display();
+  b.checkBoundaryCollision();
+  b.checkCollision(p1);
+  b.checkCollision(p2);
   
  // p1.power(omega);
  // p1.power(alpha);
