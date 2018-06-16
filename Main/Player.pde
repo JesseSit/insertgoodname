@@ -60,19 +60,22 @@ class Player {
     } 
   }
   
-  void power(Powerup pow) {
-    if (((x - pow.x) < (pow.rad+5)) && ((y - pow.y) < (pow.rad+5))) {
+  boolean power(Powerup pow) {
+    if (((x - pow.x) < (pow.rad+10)) && ((y - pow.y) < (pow.rad+10))) {
       if (pow.type == 0) { //increase health or reduce damage taken
         health += 5;
+        return true;
       }
       if (pow.type == 1) { //increase movement speed
         speed += 1;
+        return true;
       }
       if (pow.type == 2) { //increase power or damage that opponent takes
         damage += 10;
+        return true;
       }
     }
-    pow = null;
+    return false;
   }
   
   void damage(int dmg) {

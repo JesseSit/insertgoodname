@@ -40,12 +40,27 @@ void draw() {
   b.checkBoundaryCollision();
   checkCollusion();
   
- // p1.power(omega);
- // p1.power(alpha);
- // p1.power(delta);       something went wrong when i tested these
- // p2.power(omega);       so fix the power function in Player class
- // p2.power(alpha);
- // p2.power(delta);
+  //if(p1.power(omega)){omega = null;}
+  //if(p1.power(alpha)){alpha = null;}
+  //if(p1.power(delta)){delta = null;}       
+  //if(p2.power(omega)){omega = null;}       
+  //if(p2.power(alpha)){alpha = null;}
+  //if(p2.power(delta)){delta = null;}
+  
+  if (((p1.x - omega.x) < (omega.rad+10)) && ((p1.y - omega.y) < (omega.rad+10))) {
+    if (omega.type == 0) { //increase health or reduce damage taken
+      p1.health += 5;
+      omega = null;
+    }
+    if (omega.type == 1) { //increase movement speed
+      p1.speed += 1;
+      omega = null;
+    }
+    if (omega.type == 2) { //increase power or damage that opponent takes
+      p1.damage += 10;
+      omega = null;
+    }
+  }
   
   spawner = int(random(500));
   if (spawner == 1) {
@@ -60,10 +75,16 @@ void draw() {
   
   if (time > 20) {
     //spawn a new obstacle for every 10 seconds 
+    //
+    //
+    //
+    //
+    //
     //don't know how to do this either
   }
 }
-void checkCollusion(){
+
+void checkCollision(){
   if (((p1.x + 10) >= ((b.x - b.rad) - 1)) && ((p1.x + 10) <= ((b.x - b.rad) + 1)) && (b.y >= p1.y) && (b.y <= (p1.y + 80))){
     if (b.vx < 0){
       b.vx *= -1;
