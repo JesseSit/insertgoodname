@@ -1,3 +1,4 @@
+Player p1 = new Player();
 void setup(){
   size(800, 400); //generate board
   background(0, 0, 0); // set board color
