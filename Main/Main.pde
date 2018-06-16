@@ -14,7 +14,7 @@ void setup() {
   omega = new Powerup();
   alpha = new Powerup();
   delta = new Powerup();
-  b = new Ball(random(350, 450), random(150, 250), 20);
+  b = new Ball(random(350, 450), random(150, 250), 5);
 }
 
 void draw() {
@@ -38,8 +38,7 @@ void draw() {
   b.move();
   b.display();
   b.checkBoundaryCollision();
-  b.checkCollision(p1);
-  b.checkCollision(p2);
+  checkCollusion();
   
  // p1.power(omega);
  // p1.power(alpha);
@@ -64,7 +63,19 @@ void draw() {
     //don't know how to do this either
   }
 }
-
+void checkCollusion(){
+  if (((p1.x + 10) >= ((b.x - b.rad) - 1)) && ((p1.x + 10) <= ((b.x - b.rad) + 1)) && (b.y >= p1.y) && (b.y <= (p1.y + 80))){
+    if (b.vx < 0){
+      b.vx *= -1;
+    }
+  }
+  if (((p2.x) <= ((b.x + b.rad) + 1)) && ((p2.x) >= ((b.x + b.rad) - 1)) && (b.y >= p2.y) && (b.y <= (p2.y + 80))){
+    if (b.vx > 0){
+      b.vx *= -1;
+    }
+  }
+  
+}
 void display() {
   
 }

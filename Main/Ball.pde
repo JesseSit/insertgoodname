@@ -40,6 +40,7 @@ class Ball {
   
   void display() {
     fill(204);
+    stroke(204);
     ellipse(x, y, rad*2, rad*2);
   }
 }

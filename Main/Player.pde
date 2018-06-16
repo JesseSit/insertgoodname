@@ -33,7 +33,7 @@ class Player {
   
   void move() { 
     if (keyPressed) {
-      if ((x < 390) || (x < 410)) {
+      if ((x <= 385) || (x >= 405)) {
         if (key == s) {
           y += speed;
         }
@@ -43,6 +43,16 @@ class Player {
         if (key == a){
           x -= speed;
         }
+        if (key == d){
+          x += speed;
+        }
+      }
+      if ((x > 385) && (x < 390)){
+        if (key == a){
+          x -= speed;
+        }
+      }
+      if ((x > 400) && (x < 405)){
         if (key == d){
           x += speed;
         }
