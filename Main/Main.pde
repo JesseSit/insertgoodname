@@ -2,7 +2,7 @@ Player p1;
 Player p2;
 int time = 0;
 int spawner = 0;
-Powerup omega;
+Powerup omega, alpha, delta;
 
 void setup() {
   size(800, 400); //generate board
@@ -11,6 +11,8 @@ void setup() {
   p1 = new Player(25, 160, 'w', 'a', 's', 'd');
   p2 = new Player(765, 160, 'i', 'j', 'k', 'l');
   omega = new Powerup();
+  alpha = new Powerup();
+  delta = new Powerup();
 }
 
 void draw() {
@@ -28,13 +30,25 @@ void draw() {
   p2.move();
   p2.display();
   omega.display();
+  alpha.display();
+  delta.display();
   
-
+ // p1.power(omega);
+ // p1.power(alpha);
+ // p1.power(delta);       something went wrong when i tested these
+ // p2.power(omega);       so fix the power function in Player class
+ // p2.power(alpha);
+ // p2.power(delta);
   
-  spawner = int(random(2));
+  spawner = int(random(500));
   if (spawner == 1) {
-    //make spawn a powerup
-    //not sure how to do this
+    omega = new Powerup();
+  }
+  if (spawner == 2) {
+    alpha = new Powerup();
+  }
+  if (spawner == 3) {
+    delta = new Powerup(); 
   }
   
   if (time > 20) {
