@@ -2,7 +2,6 @@ class Powerup {
   
   float x, y;  //coords
   int type;  //1,2, or 3 depending on which powerup
-  int col;  //color
   float rad;  //size
   
   
@@ -10,7 +9,6 @@ class Powerup {
     x = random(1,800);
     y = random(1,400);
     type = int(random(3));
-    col = type;
     rad = (type + 1) * 5;
   }
   
