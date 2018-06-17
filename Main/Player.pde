@@ -36,7 +36,7 @@ class Player {
   // ======================== MOVE ========================================================================
   void move() { 
     if (keyPressed) {
-      if ((x <= 385) || (x >= 405)) {
+      if ((((x >= 5) && (x <= 385)) || ((x<= 785) && (x >= 405))) && ((y >= 55) && (y <= 365))) {
         if (key == s) {
           y += speed;
         }
@@ -60,11 +60,34 @@ class Player {
           x += speed;
         }
       }
+      if (x < 5){
+        if (key == d){
+          x += speed;
+        }
+      }
+      if (x > 785){
+        if (key == a){
+          x -= speed;
+        }
+      }
+      if (y > 365){
+        if (key == w){
+          y -= speed;
+        }
+      }
+      if (y < 55){
+        if (key == s){
+          y += speed;
+        }
+      }
     } 
   }
-  
+  void reset(int resetX, int resetY){
+    x = resetX;
+    y = resetY;
+  }
   // ================= POWER-UP MECHANICS ========================================================================
-  boolean power(Powerup pow) {
+  /*boolean power(Powerup pow) {
     if (((x - pow.x) < (pow.rad+10)) && ((y - pow.y) < (pow.rad+10))) {
       if (pow.type == 0) { //increase health or reduce damage taken
         health += 5;
@@ -80,17 +103,12 @@ class Player {
       }
     }
     return false;
-  }
+  }*/
   
   // ====================== DAMAGE CALC ================================================
   void damage(int dmg) {
     health -= dmg;
   }
-  
-  // =================== OBSTACLE COLLISION ==========================================
-  // boolean collide(Obstacle ob) {
-  //   return true;
-  // }
   
   // ======================== DISPLAY ================================================
   void display() {

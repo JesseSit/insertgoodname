@@ -6,6 +6,7 @@ class Ball {
   float vx = 0;
   float vy = 0;
   boolean start = false;
+  boolean turn = false;
  
   // ======================== CONSTRUCTORS ================================================
   Ball(float xin, float yin, float d) {
@@ -29,17 +30,17 @@ class Ball {
   
   // =================== CHECK BOUNDARY COLLISION ================================================
   void checkBoundaryCollision() {
-    if (x > width-rad) {
+    /*if (x > width-rad) {
       x = width-rad;
       vx *= -1;
     } else if (x < rad) {
       x = rad;
       vx *= -1;
-    } else if (y > height-rad) {
+    } else*/ if (y > height-rad) {
       y = height-rad;
       vy *= -1;
-    } else if (y < rad) {
-      y = rad;
+    } else if (y < (rad + 50)) {
+      y = rad + 50;
       vy *= -1;
     }
   }

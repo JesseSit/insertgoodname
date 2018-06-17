@@ -11,7 +11,7 @@ String finish;
 
 // ============================ SETUP =====================================================================
 void setup() {
-  size(800, 400); //generate board
+  size(800, 450); //generate board
   background(0, 0, 0); // set board color
   frameRate(60); // sets basic parameters
   p1 = new Player(25, 160, 'w', 'a', 's', 'd');
@@ -27,83 +27,108 @@ void draw() {
   background(0, 0, 0);
   fill(255, 255, 255);
   stroke(255, 255, 255);
-  line(400, 0, 400, 400);
+  line(400, 50, 400, 450);
+  line(0, 50, 800, 50);
 
   // TEXT STUFF
   time = millis()/1000;
   String Time = str(time);
-  textSize(60);
-  text(Time, 340, 70);
+  textSize(40);
+  text("Time: ", 590, 40);
+  text(Time, 700, 40);
+  textSize(15);
+  text("Player One Health:", 220, 30);
+  text(str(p1.health), 360, 30);
+  text("Player Two Health:", 410, 30);
+  text(str(p2.health), 550, 30);
   finish = null;
-  
+
   // POWERUP SPAWN ---------------------------------------------------------------------------------------------------------
   spawnPU = int(random(0, 250));
-  if (spawnPU == 5){
+  if (spawnPU == 5) {
     omega = new Powerup();
     Power.add(omega);
     powerLength += 1;
   }
-  
+
   // PLAYERS --------------------------------------------------------------------------------------------------------------
   p1.move();
   p1.display();
   p2.move();
   p2.display();
-  
+
   // BALL --------------------------------------------------------------------------------------------------------------
   b.display();
   b.checkBoundaryCollision();
   checkCollision();
-  
+
+  if ((!b.start) && (b.turn == false)) {
+    if (keyPressed) {
+      if (key == p1.w) {
+        b.y -= p1.speed;
+      }
+      if (key == p1.a) {
+        b.x -= p1.speed;
+      }
+      if (key == p1.s) {
+        b.y += p1.speed;
+      }
+      if (key == p1.d) {
+        b.x += p1.speed;
+      }
+    }
+  }
+  if ((!b.start) && (b.turn == true)) {
+    if (keyPressed) {
+      if (key == p2.w) {
+        b.y -= p2.speed;
+      }
+      if (key == p2.a) {
+        b.x -= p2.speed;
+      }
+      if (key == p2.s) {
+        b.y += p2.speed;
+      }
+      if (key == p2.d) {
+        b.x += p2.speed;
+      }
+    }
+  }
+
   // POWERUP MECHANICS ----------------------------------------------------------------------
   powerLength = Power.size() - 1;
-  while (powerLength >= 0){
+  while (powerLength >= 0) {
     Power.get(powerLength).display();
     powerLength -= 1;
   }
-  
+
   // POWERUP MECHANICS FOR PLAYER 1 --------------------------------------------------------------------------------
   powerLength = Power.size() - 1;
-  while (powerLength >= 0){
-    if (((p1.x + 10) >= (Power.get(powerLength).x - Power.get(powerLength).rad)) && ((p1.x) <= ((Power.get(powerLength).x - Power.get(powerLength).rad))) && (Power.get(powerLength).y >= p1.y) && (Power.get(powerLength).y <= (p1.y + 80))){
-      if (Power.get(powerLength).type == 0) { //increase health or reduce damage taken
-        p1.health += 5;
-        Power.remove(powerLength);
-        powerLength = Power.size() - 1;
-      }
-      else if (Power.get(powerLength).type == 1) { //increase movement speed
-        p1.speed += 1;
-        Power.remove(powerLength);
-        powerLength = Power.size() - 1;
-      }
-      else if (Power.get(powerLength).type == 2) { //increase power or damage that opponent takes
-        p1.damage += 10;
-        Power.remove(powerLength);
-        powerLength = Power.size() - 1;
-      }
+  while (powerLength >= 0) {
+    if (((p1.x + 10) >= (Power.get(powerLength).x - Power.get(powerLength).rad)) && (p1.x <= (Power.get(powerLength).x - Power.get(powerLength).rad)) && (Power.get(powerLength).y >= p1.y) && (Power.get(powerLength).y <= (p1.y + 80))){
+      pop(p1);
+    } else if ((p1.x <= (Power.get(powerLength).x + Power.get(powerLength).rad)) && ((p1.x + 10) >= (Power.get(powerLength).x + Power.get(powerLength).rad)) && (Power.get(powerLength).y >= p1.y) && (Power.get(powerLength).y <= (p1.y + 80))){
+      pop(p1);
+    } else if (p1.y <= (Power.get(powerLength).y + Power.get(powerLength).rad) && ((p1.y + 80) >= (Power.get(powerLength).y + Power.get(powerLength).rad)) && (Power.get(powerLength).x >= p1.x) && (Power.get(powerLength).x <= (p1.x + 10))){
+      pop(p1);
+    } else if ((p1.y + 80) >= (Power.get(powerLength).y - Power.get(powerLength).rad) && (p1.y <= (Power.get(powerLength).y - Power.get(powerLength).rad)) && (Power.get(powerLength).x >= p1.x) && (Power.get(powerLength).x <= (p1.x + 10))){
+      pop(p1);
     }
     powerLength -= 1;
   }
-  
+
   // POWERUP MECHANICS FOR PLAYER 2 ----------------------------------------------------------------------------
   powerLength = Power.size() - 1;
-  while (powerLength >= 0){
-    if (((p2.x) <= (Power.get(powerLength).x + Power.get(powerLength).rad)) && ((p2.x + 10) >= ((Power.get(powerLength).x + Power.get(powerLength).rad))) && (Power.get(powerLength).y >= p2.y) && (Power.get(powerLength).y <= (p2.y + 80))){
-      if (Power.get(powerLength).type == 0) { //increase health or reduce damage taken
-        p2.health += 5;
-        Power.remove(powerLength);
-        powerLength = Power.size() - 1;
-      }
-      else if (Power.get(powerLength).type == 1) { //increase movement speed
-        p2.speed += 1;
-        Power.remove(powerLength);
-        powerLength = Power.size() - 1;
-      }
-      else if (Power.get(powerLength).type == 2) { //increase power or damage that opponent takes
-        p2.damage += 10;
-        Power.remove(powerLength);
-        powerLength = Power.size() - 1;
-      }
+  while (powerLength >= 0) {
+    if ((p2.x <= (Power.get(powerLength).x + Power.get(powerLength).rad)) && ((p2.x + 10) >= ((Power.get(powerLength).x + Power.get(powerLength).rad))) && (Power.get(powerLength).y >= p2.y) && (Power.get(powerLength).y <= (p2.y + 80))) {
+      pop(p2);
+    }
+    if (((p2.x + 10) >= (Power.get(powerLength).x - Power.get(powerLength).rad)) && (p2.x <= (Power.get(powerLength).x - Power.get(powerLength).rad)) && (Power.get(powerLength).y >= p2.y) && (Power.get(powerLength).y <= (p2.y + 80))){
+      pop(p2);
+    } else if (p2.y <= (Power.get(powerLength).y + Power.get(powerLength).rad) && ((p2.y + 80) >= (Power.get(powerLength).y + Power.get(powerLength).rad)) && (Power.get(powerLength).x >= p2.x) && (Power.get(powerLength).x <= (p2.x + 10))){
+      pop(p2);
+    } else if ((p2.y + 80) >= (Power.get(powerLength).y - Power.get(powerLength).rad) && (p2.y <= (Power.get(powerLength).y - Power.get(powerLength).rad)) && (Power.get(powerLength).x >= p2.x) && (Power.get(powerLength).x <= (p2.x + 10))){
+      pop(p2);
     }
     powerLength -= 1;
   }
@@ -115,43 +140,63 @@ void draw() {
     finish = "Player 2 Wins";
     text(finish, 220, 200); 
     noLoop(); //stops draw()
-  }
-  else if (p2.health <= 0) {
+  } else if (p2.health <= 0) {
     finish = "Player 1 Wins";
     text(finish, 220, 200);
     noLoop(); //stops draw()
-  } 
+  }
 } // end draw() =========================================================================================================
+
+void pop(Player play) {
+  if (Power.get(powerLength).type == 0) { //increase health or reduce damage taken
+    play.health += 5;
+    Power.remove(powerLength);
+    powerLength = Power.size() - 1;
+  } else if (Power.get(powerLength).type == 1) { //increase movement speed
+    play.speed += 1;
+    Power.remove(powerLength);
+    powerLength = Power.size() - 1;
+  } else if (Power.get(powerLength).type == 2) { //increase power or damage that opponent takes
+    play.damage += 10;
+    Power.remove(powerLength);
+    powerLength = Power.size() - 1;
+  }
+}
 
 // ================== CHECK IF BALL HITS BACK COURT ====================================================================================
 void backCourt() {
   if (b.x <= 0) {
     b.reset(40, 200);
+    b.turn = false;
+    p1.reset(25, 160);
+    p2.reset(765, 160);
     /*if (b.vx < 0) {
-      b.vx *= -1;
-      b.vy *= -1;
-    }*/
+     b.vx *= -1;
+     b.vy *= -1;
+     }*/
     p1.damage(p2.damage);
-  }
-  else if (b.x >= 800) {
+  } else if (b.x >= 800) {
     b.reset(760, 200);
+    b.turn = true;
+    p1.reset(25, 160);
+    p2.reset(765, 160);
     /*if (b.vx > 0) {
-      b.vx *= -1;
-      b.vy *= -1;
-    }*/
+     b.vx *= -1;
+     b.vy *= -1;
+     }*/
     p2.damage(p1.damage);
   }
 } // end backCourt() =========================================================================================================
- 
+
 // ======================= CHECK IF PLAYER HITS BALL ========================================================================================================
-void checkCollision(){
-  if (((p1.x + 10) >= ((b.x - b.rad) - 1)) && ((p1.x + 10) <= ((b.x - b.rad) + 1)) && (b.y >= p1.y) && (b.y <= (p1.y + 80))){
-    if (b.vx < 0){
+void checkCollision() {
+  if (((p1.x + 10) >= ((b.x - b.rad) - 1)) && ((p1.x + 10) <= ((b.x - b.rad) + 1)) && (b.y >= p1.y) && (b.y <= (p1.y + 80))) {
+    if (b.vx < 0) {
       b.vx *= -1;
     }
   }
-  if (((p2.x) <= ((b.x + b.rad) + 1)) && ((p2.x) >= ((b.x + b.rad) - 1)) && (b.y >= p2.y) && (b.y <= (p2.y + 80))){
-    if (b.vx > 0){
+  if (((p2.x) <= ((b.x + b.rad) + 1)) && ((p2.x) >= ((b.x + b.rad) - 1)) && (b.y >= p2.y) && (b.y <= (p2.y + 80))) {
+    if (b.vx > 0) {
       b.vx *= -1;
     }
   }
@@ -159,5 +204,4 @@ void checkCollision(){
 
 // ============================= DISPLAY ========================================================================================================
 void display() {
-  
 } // end display() ========================================================================================================

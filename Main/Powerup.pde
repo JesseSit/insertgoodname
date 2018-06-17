@@ -7,8 +7,8 @@ class Powerup {
   
   // ======================= CONSTRUCTORS ================================================
   Powerup() {
-    x = random(1,800);
-    y = random(1,400);
+    x = random(30,770);
+    y = random(80,370);
     type = int(random(3));
     rad = (type + 1) * 5;
   }
