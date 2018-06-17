@@ -119,13 +119,7 @@ void draw() {
   // POWERUP MECHANICS FOR PLAYER 1 --------------------------------------------------------------------------------
   powerLength = Power.size() - 1;
   while (powerLength >= 0) {
-    if (((p1.x + 10) >= (Power.get(powerLength).x - Power.get(powerLength).rad)) && (p1.x <= (Power.get(powerLength).x - Power.get(powerLength).rad)) && (Power.get(powerLength).y >= p1.y) && (Power.get(powerLength).y <= (p1.y + 80))){
-      pop(p1);
-    } else if ((p1.x <= (Power.get(powerLength).x + Power.get(powerLength).rad)) && ((p1.x + 10) >= (Power.get(powerLength).x + Power.get(powerLength).rad)) && (Power.get(powerLength).y >= p1.y) && (Power.get(powerLength).y <= (p1.y + 80))){
-      pop(p1);
-    } else if (p1.y <= (Power.get(powerLength).y + Power.get(powerLength).rad) && ((p1.y + 80) >= (Power.get(powerLength).y + Power.get(powerLength).rad)) && (Power.get(powerLength).x >= p1.x) && (Power.get(powerLength).x <= (p1.x + 10))){
-      pop(p1);
-    } else if ((p1.y + 80) >= (Power.get(powerLength).y - Power.get(powerLength).rad) && (p1.y <= (Power.get(powerLength).y - Power.get(powerLength).rad)) && (Power.get(powerLength).x >= p1.x) && (Power.get(powerLength).x <= (p1.x + 10))){
+    if (((p1.x + 10) >= (Power.get(powerLength).x - Power.get(powerLength).rad)) && (p1.x <= (Power.get(powerLength).x + Power.get(powerLength).rad)) && (p1.y <= (Power.get(powerLength).y + Power.get(powerLength).rad)) && ((p1.y + 80) >= (Power.get(powerLength).y) - Power.get(powerLength).rad)){
       pop(p1);
     }
     powerLength -= 1;
@@ -134,13 +128,7 @@ void draw() {
   // POWERUP MECHANICS FOR PLAYER 2 ----------------------------------------------------------------------------
   powerLength = Power.size() - 1;
   while (powerLength >= 0) {
-    if ((p2.x <= (Power.get(powerLength).x + Power.get(powerLength).rad)) && ((p2.x + 10) >= ((Power.get(powerLength).x + Power.get(powerLength).rad))) && (Power.get(powerLength).y >= p2.y) && (Power.get(powerLength).y <= (p2.y + 80))) {
-      pop(p2);
-    } else if (((p2.x + 10) >= (Power.get(powerLength).x - Power.get(powerLength).rad)) && (p2.x <= (Power.get(powerLength).x - Power.get(powerLength).rad)) && (Power.get(powerLength).y >= p2.y) && (Power.get(powerLength).y <= (p2.y + 80))){
-      pop(p2);
-    } else if (p2.y <= (Power.get(powerLength).y + Power.get(powerLength).rad) && ((p2.y + 80) >= (Power.get(powerLength).y + Power.get(powerLength).rad)) && (Power.get(powerLength).x >= p2.x) && (Power.get(powerLength).x <= (p2.x + 10))){
-      pop(p2);
-    } else if ((p2.y + 80) >= (Power.get(powerLength).y - Power.get(powerLength).rad) && (p2.y <= (Power.get(powerLength).y - Power.get(powerLength).rad)) && (Power.get(powerLength).x >= p2.x) && (Power.get(powerLength).x <= (p2.x + 10))){
+    if (((p2.x + 10) >= (Power.get(powerLength).x - Power.get(powerLength).rad)) && (p2.x <= (Power.get(powerLength).x + Power.get(powerLength).rad)) && (p2.y <= (Power.get(powerLength).y + Power.get(powerLength).rad)) && ((p2.y + 80) >= (Power.get(powerLength).y) - Power.get(powerLength).rad)){
       pop(p2);
     }
     powerLength -= 1;
@@ -206,21 +194,17 @@ void backCourt() {
     b.turn = false;
     p1.reset(25, 160);
     p2.reset(765, 160);
-    /*if (b.vx < 0) {
-     b.vx *= -1;
-     b.vy *= -1;
-     }*/
     p1.damage(p2.damage);
+    Power.clear();
+    Power.add(omega);
   } else if (b.x >= 800) {
     b.reset(760, 200);
     b.turn = true;
     p1.reset(25, 160);
     p2.reset(765, 160);
-    /*if (b.vx > 0) {
-     b.vx *= -1;
-     b.vy *= -1;
-     }*/
     p2.damage(p1.damage);
+    Power.clear();
+    Power.add(omega);
   }
 } // end backCourt() =========================================================================================================
 
