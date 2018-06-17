@@ -2,10 +2,14 @@
 Player p1;
 Player p2;
 Powerup omega;
+Obstacle delta;
 int time = 0;
 int spawnPU = 0;
+int spawnOB = 0;
 ArrayList<Powerup> Power = new ArrayList<Powerup>();
+ArrayList<Obstacle> Obs = new ArrayList<Obstacle>();
 int powerLength = 0;
+int obslength = 1;
 Ball b;
 String finish;
 
@@ -18,7 +22,9 @@ void setup() {
   p2 = new Player(765, 160, 'i', 'j', 'k', 'l');
   b = new Ball(40, 200, 5);
   omega = new Powerup();
+  delta = new Obstacle();
   Power.add(omega);
+  Obs.add(delta);
 }  // end setup() =====================================================================
 
 // ============================= DRAW =====================================================================
@@ -49,6 +55,14 @@ void draw() {
     omega = new Powerup();
     Power.add(omega);
     powerLength += 1;
+  }
+  
+  // OBSTACLE SPAWN -----------------------------------------------------------------------------------------
+  spawnOB = int(random(0, 200));
+  if (spawnOB == 5) {
+    delta = new Obstacle();
+    Obs.add(delta);
+    obslength += 1;
   }
 
   // PLAYERS --------------------------------------------------------------------------------------------------------------
@@ -94,7 +108,7 @@ void draw() {
       }
     }
   }
-
+  
   // POWERUP MECHANICS ----------------------------------------------------------------------
   powerLength = Power.size() - 1;
   while (powerLength >= 0) {
@@ -134,6 +148,14 @@ void draw() {
   }
 
   backCourt();
+  
+  // OBSTACLE -------------------------------------------------------------------------------------
+  obslength = Obs.size() - 1;
+  while (obslength > -1) {
+    Obs.get(obslength).move();
+    Obs.get(obslength).display();
+    obslength -= 1;
+  }
 
   // CHECK FOR WINNER ------------------------------------------------------------------------------
   if (p1.health <= 0) {
@@ -153,7 +175,7 @@ void pop(Player play) {
     Power.remove(powerLength);
     powerLength = Power.size() - 1;
   } else if (Power.get(powerLength).type == 1) { //increase movement speed
-    play.speed += 1;
+    play.speed += 0.4;
     Power.remove(powerLength);
     powerLength = Power.size() - 1;
   } else if (Power.get(powerLength).type == 2) { //increase power or damage that opponent takes
@@ -188,8 +210,9 @@ void backCourt() {
   }
 } // end backCourt() =========================================================================================================
 
-// ======================= CHECK IF PLAYER HITS BALL ========================================================================================================
+// ======================= CHECK IF PLAYER COLLIDES ========================================================================================================
 void checkCollision() {
+  // BALL ---------------------------------------------------------------------------------------------- 
   if (((p1.x + 10) >= ((b.x - b.rad) - 1)) && ((p1.x + 10) <= ((b.x - b.rad) + 1)) && (b.y >= p1.y) && (b.y <= (p1.y + 80))) {
     if (b.vx < 0) {
       b.vx *= -1;
@@ -200,6 +223,17 @@ void checkCollision() {
       b.vx *= -1;
     }
   }
+  // OBSTACLE ---------------------------------------------------------------------------------------
+  //obslength = Obs.size() - 1;
+  //while (obslength > -1) {
+  //  Obstacle temp = Obs.get(obslength);
+  //  if () {
+  //    
+  //  }
+  //  if () {
+  //    
+  //  }
+  //}
 } // end checkCollision() ========================================================================================================
 
 // ============================= DISPLAY ========================================================================================================
