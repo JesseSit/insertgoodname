@@ -29,7 +29,7 @@ class Player {
     s = s1;
     d = d1;
     health = 390;
-    damage = 100;
+    damage = 20;
     speed = 2;
   }
   
@@ -87,6 +87,7 @@ class Player {
     health -= dmg;
   }
   
+  // =================== OBSTACLE COLLISION ==========================================
   // boolean collide(Obstacle ob) {
   //   return true;
   // }

@@ -23,7 +23,7 @@ void setup() {
 
 // ============================= DRAW =====================================================================
 void draw() {
-  // SET BOARD AND COLOR
+  // SET BOARD AND COLOR ------------------------------------------------------------------------
   background(0, 0, 0);
   fill(255, 255, 255);
   stroke(255, 255, 255);
@@ -56,13 +56,14 @@ void draw() {
   b.checkBoundaryCollision();
   checkCollision();
   
+  // POWERUP MECHANICS ----------------------------------------------------------------------
   powerLength = Power.size() - 1;
   while (powerLength >= 0){
     Power.get(powerLength).display();
     powerLength -= 1;
   }
   
-  //POWERUP MECHANICS FOR PLAYER 1 --------------------------------------------------------------------------------
+  // POWERUP MECHANICS FOR PLAYER 1 --------------------------------------------------------------------------------
   powerLength = Power.size() - 1;
   while (powerLength >= 0){
     if (((p1.x + 10) >= (Power.get(powerLength).x - Power.get(powerLength).rad)) && ((p1.x) <= ((Power.get(powerLength).x - Power.get(powerLength).rad))) && (Power.get(powerLength).y >= p1.y) && (Power.get(powerLength).y <= (p1.y + 80))){
@@ -108,32 +109,32 @@ void draw() {
     powerLength -= 1;
   }
 
+  backCourt();
+
   // CHECK FOR WINNER ------------------------------------------------------------------------------
-    // ******************
-    // note: does not work with backCourt()
-    // ******************  
   if (p1.health <= 0) {
     finish = "Player 2 Wins";
-    text(finish, 400, 100); 
+    text(finish, 220, 200); 
     noLoop(); //stops draw()
   }
   else if (p2.health <= 0) {
     finish = "Player 1 Wins";
-    text(finish, 400, 100);
+    text(finish, 220, 200);
     noLoop(); //stops draw()
   } 
 } // end draw() =========================================================================================================
 
 // ================== CHECK IF BALL HITS BACK COURT ====================================================================================
-  // ****************
-  // note = does not work with end game mechanics
-  // ****************
 void backCourt() {
   if (b.x < (width/2 - p1.health)) {
     p1.damage(p2.damage);
+    b.vx *= -1;
+    b.vy *= -1;
   }
   else if (b.x > (width/2 + p2.health)) {
     p2.damage(p1.damage);
+    b.vx *= -1;
+    b.vy *= -1;
   }
 } // end backCourt() =========================================================================================================
  
