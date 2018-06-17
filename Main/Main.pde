@@ -136,8 +136,7 @@ void draw() {
   while (powerLength >= 0) {
     if ((p2.x <= (Power.get(powerLength).x + Power.get(powerLength).rad)) && ((p2.x + 10) >= ((Power.get(powerLength).x + Power.get(powerLength).rad))) && (Power.get(powerLength).y >= p2.y) && (Power.get(powerLength).y <= (p2.y + 80))) {
       pop(p2);
-    }
-    if (((p2.x + 10) >= (Power.get(powerLength).x - Power.get(powerLength).rad)) && (p2.x <= (Power.get(powerLength).x - Power.get(powerLength).rad)) && (Power.get(powerLength).y >= p2.y) && (Power.get(powerLength).y <= (p2.y + 80))){
+    } else if (((p2.x + 10) >= (Power.get(powerLength).x - Power.get(powerLength).rad)) && (p2.x <= (Power.get(powerLength).x - Power.get(powerLength).rad)) && (Power.get(powerLength).y >= p2.y) && (Power.get(powerLength).y <= (p2.y + 80))){
       pop(p2);
     } else if (p2.y <= (Power.get(powerLength).y + Power.get(powerLength).rad) && ((p2.y + 80) >= (Power.get(powerLength).y + Power.get(powerLength).rad)) && (Power.get(powerLength).x >= p2.x) && (Power.get(powerLength).x <= (p2.x + 10))){
       pop(p2);
