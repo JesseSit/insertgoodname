@@ -1,10 +1,12 @@
 class Ball {
-  
+
+  // ======================== VARIABLES ================================================
   float x, y;
   float rad;
   float vx = 0;
   float vy = 0;
  
+  // ======================== CONSTRUCTORS ================================================
   Ball(float xin, float yin, float d) {
     x = xin;
     y = yin;
@@ -13,11 +15,13 @@ class Ball {
     vy = 3;
   } 
   
+  // ============================ MOVE ================================================
   void move() {
     x += vx;
     y += vy;
   }
   
+  // =================== CHECK BOUNDARY COLLISION ================================================
   void checkBoundaryCollision() {
     if (x > width-rad) {
       x = width-rad;
@@ -34,13 +38,16 @@ class Ball {
     }
   }
 
+  // ===================== CHECK PLAYER COLLISION ================================================
   void checkCollision(Player play) {
     //insert code xdddddd 
   }
   
+  // ========================== DISPLAY ========================================================================
   void display() {
     fill(204);
     stroke(204);
     ellipse(x, y, rad*2, rad*2);
   }
-}
+  
+} // ================================================================================================

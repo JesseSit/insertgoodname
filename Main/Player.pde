@@ -1,5 +1,6 @@
 class Player {
   
+  // ======================== VARIABLES ================================================
   int x; //x-pos when initiated
   int y; //y-pos when initiated
   char w, a, s, d; // initiate commands
@@ -7,6 +8,7 @@ class Player {
   int damage;  //amount screen that oppoment loses during damage
   int speed; //movement speed
   
+  // ======================= CONSTRUCTORS ================================================
   Player() {
     x = 25;
     y = 160;
@@ -31,6 +33,7 @@ class Player {
     speed = 2;
   }
   
+  // ======================== MOVE ========================================================================
   void move() { 
     if (keyPressed) {
       if ((x <= 385) || (x >= 405)) {
@@ -60,6 +63,7 @@ class Player {
     } 
   }
   
+  // ================= POWER-UP MECHANICS ========================================================================
   boolean power(Powerup pow) {
     if (((x - pow.x) < (pow.rad+10)) && ((y - pow.y) < (pow.rad+10))) {
       if (pow.type == 0) { //increase health or reduce damage taken
@@ -78,6 +82,7 @@ class Player {
     return false;
   }
   
+  // ====================== DAMAGE CALC ================================================
   void damage(int dmg) {
     health -= dmg;
   }
@@ -86,9 +91,10 @@ class Player {
   //   return true;
   // }
   
+  // ======================== DISPLAY ================================================
   void display() {
     fill(255, 255, 255);
     rect(x, y, 10, 80);
   }
-  
+
 }
