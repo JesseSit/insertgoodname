@@ -173,11 +173,13 @@ void draw() {
 
 void pop(Player play) {
   if (Power.get(powerLength).type == 0) { //increase health or reduce damage taken
-    play.health += 5;
+    play.health += 10;
     Power.remove(powerLength);
     powerLength = Power.size() - 1;
   } else if (Power.get(powerLength).type == 1) { //increase movement speed
-    play.speed += 0.4;
+    if (play.speed < 5) {
+      play.speed += 0.5;
+    }
     Power.remove(powerLength);
     powerLength = Power.size() - 1;
   } else if (Power.get(powerLength).type == 2) { //increase power or damage that opponent takes
@@ -214,11 +216,27 @@ void checkCollision() {
   if (((p1.x + 10) >= ((b.x - b.rad) - 1)) && ((p1.x + 10) <= ((b.x - b.rad) + 10)) && (b.y >= p1.y) && (b.y <= (p1.y + 80))) {
     if (b.vx < 0) {
       b.vx *= -1;
+      if (int(random(10)) == 1) {
+        if (b.vx > 0) {
+          b.vx += 0.5; 
+        }
+        else {
+          b.vx -= 0.5; 
+        }
+      }
     }
   }
   if (((p2.x) <= ((b.x + b.rad) + 1)) && ((p2.x) >= ((b.x + b.rad) - 10)) && (b.y >= p2.y) && (b.y <= (p2.y + 80))) {
     if (b.vx > 0) {
       b.vx *= -1;
+      if (int(random(10)) == 1) {
+        if (b.vx > 0) {
+          b.vx += 0.5;
+        }
+        else {
+          b.vx -= 0.5; 
+        }
+      }
     }
   }
   // OBSTACLE ---------------------------------------------------------------------------------------
