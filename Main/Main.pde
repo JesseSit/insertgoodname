@@ -156,6 +156,21 @@ void draw() {
     Obs.get(obslength).display();
     obslength -= 1;
   }
+  
+  obslength = Obs.size() - 1;
+  while (obslength > -1) {
+    if (((p1.x + 10) >= Obs.get(obslength).x) && (p1.x <= (Obs.get(obslength).x + Obs.get(obslength).w)) && (Obs.get(obslength).y <= (p1.y + 80)) && ((Obs.get(obslength).y + Obs.get(obslength).h) >= p1.y)){
+      Obs.remove(obslength);
+      obslength = Obs.size() - 1;
+      p1.health -= 20;
+    }
+    if (((p2.x + 10) >= Obs.get(obslength).x) && (p2.x <= (Obs.get(obslength).x + Obs.get(obslength).w)) && (Obs.get(obslength).y <= (p2.y + 80)) && ((Obs.get(obslength).y + Obs.get(obslength).h) >= p2.y)){
+      Obs.remove(obslength);
+      obslength = Obs.size() - 1;
+      p2.health -= 20;
+    }
+    obslength -= 1;
+  }
 
   // CHECK FOR WINNER ------------------------------------------------------------------------------
   if (p1.health <= 0) {
@@ -224,16 +239,7 @@ void checkCollision() {
     }
   }
   // OBSTACLE ---------------------------------------------------------------------------------------
-  //obslength = Obs.size() - 1;
-  //while (obslength > -1) {
-  //  Obstacle temp = Obs.get(obslength);
-  //  if () {
-  //    
-  //  }
-  //  if () {
-  //    
-  //  }
-  //}
+  //
 } // end checkCollision() ========================================================================================================
 
 // ============================= DISPLAY ========================================================================================================
