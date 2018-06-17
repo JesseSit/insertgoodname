@@ -15,7 +15,7 @@ class Player {
     s = 's';
     d = 'd';
     health = 390;
-    damage = 10;
+    damage = 20;
     speed = 2;
   }
   
@@ -27,7 +27,7 @@ class Player {
     s = s1;
     d = d1;
     health = 390;
-    damage = 10;
+    damage = 100;
     speed = 2;
   }
   

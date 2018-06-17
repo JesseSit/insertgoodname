@@ -6,7 +6,9 @@ int spawnPU = 0;
 ArrayList<Powerup> Power = new ArrayList<Powerup>();
 int powerLength = 0;
 Ball b;
+String finish;
 
+// ============================ SETUP =====================================================================
 void setup() {
   size(800, 400); //generate board
   background(0, 0, 0); // set board color
@@ -16,19 +18,24 @@ void setup() {
   b = new Ball(random(350, 450), random(150, 250), 5);
   omega = new Powerup();
   Power.add(omega);
-}
+}  // end setup() =====================================================================
 
+// ============================= DRAW =====================================================================
 void draw() {
-  background(0, 0, 0); // set board color
+  // SET BOARD AND COLOR
+  background(0, 0, 0);
   fill(255, 255, 255);
   stroke(255, 255, 255);
   line(400, 0, 400, 400);
 
+  // TEXT STUFF
   time = millis()/1000;
   String Time = str(time);
   textSize(60);
   text(Time, 340, 70);
+  finish = null;
   
+  // POWERUP SPAWN ---------------------------------------------------------------------------------------------------------
   spawnPU = int(random(0, 250));
   if (spawnPU == 5){
     omega = new Powerup();
@@ -36,11 +43,13 @@ void draw() {
     powerLength += 1;
   }
   
+  // PLAYERS --------------------------------------------------------------------------------------------------------------
   p1.move();
   p1.display();
   p2.move();
   p2.display();
   
+  // BALL --------------------------------------------------------------------------------------------------------------
   b.move();
   b.display();
   b.checkBoundaryCollision();
@@ -51,6 +60,8 @@ void draw() {
     Power.get(powerLength).display();
     powerLength -= 1;
   }
+  
+  //POWERUP MECHANICS FOR PLAYER 1 --------------------------------------------------------------------------------
   powerLength = Power.size() - 1;
   while (powerLength >= 0){
     if (((p1.x + 10) >= (Power.get(powerLength).x - Power.get(powerLength).rad)) && ((p1.x) <= ((Power.get(powerLength).x - Power.get(powerLength).rad))) && (Power.get(powerLength).y >= p1.y) && (Power.get(powerLength).y <= (p1.y + 80))){
@@ -72,6 +83,8 @@ void draw() {
     }
     powerLength -= 1;
   }
+  
+  // POWERUP MECHANICS FOR PLAYER 2 ----------------------------------------------------------------------------
   powerLength = Power.size() - 1;
   while (powerLength >= 0){
     if (((p2.x) <= (Power.get(powerLength).x + Power.get(powerLength).rad)) && ((p2.x + 10) >= ((Power.get(powerLength).x + Power.get(powerLength).rad))) && (Power.get(powerLength).y >= p2.y) && (Power.get(powerLength).y <= (p2.y + 80))){
@@ -93,8 +106,37 @@ void draw() {
     }
     powerLength -= 1;
   }
-}
+
+  // CHECK FOR WINNER ------------------------------------------------------------------------------
+    // ******************
+    // note: does not work with backCourt()
+    // ******************  
+  if (p1.health <= 0) {
+    finish = "Player 2 Wins";
+    text(finish, 400, 100); 
+    noLoop(); //stops draw()
+  }
+  else if (p2.health <= 0) {
+    finish = "Player 1 Wins";
+    text(finish, 400, 100);
+    noLoop(); //stops draw()
+  } 
+} // end draw() =========================================================================================================
+
+// ================== CHECK IF BALL HITS BACK COURT ====================================================================================
+  // ****************
+  // note = does not work with end game mechanics
+  // ****************
+void backCourt() {
+  if (b.x < (width/2 - p1.health)) {
+    p1.damage(p2.damage);
+  }
+  else if (b.x > (width/2 + p2.health)) {
+    p2.damage(p1.damage);
+  }
+} // end backCourt() =========================================================================================================
  
+// ======================= CHECK IF PLAYER HITS BALL ========================================================================================================
 void checkCollision(){
   if (((p1.x + 10) >= ((b.x - b.rad) - 1)) && ((p1.x + 10) <= ((b.x - b.rad) + 1)) && (b.y >= p1.y) && (b.y <= (p1.y + 80))){
     if (b.vx < 0){
@@ -106,8 +148,9 @@ void checkCollision(){
       b.vx *= -1;
     }
   }
-  
-}
+} // end checkCollision() ========================================================================================================
+
+// ============================= DISPLAY ========================================================================================================
 void display() {
   
-}
+} // end display() ========================================================================================================

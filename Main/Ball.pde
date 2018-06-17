@@ -9,7 +9,7 @@ class Ball {
     x = xin;
     y = yin;
     rad = d;
-    vx = 3;
+    vx = 5;
     vy = 3;
   } 
   
