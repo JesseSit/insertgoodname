@@ -16,7 +16,7 @@ void setup() {
   frameRate(60); // sets basic parameters
   p1 = new Player(25, 160, 'w', 'a', 's', 'd');
   p2 = new Player(765, 160, 'i', 'j', 'k', 'l');
-  b = new Ball(random(350, 450), random(150, 250), 5);
+  b = new Ball(40, 200, 5);
   omega = new Powerup();
   Power.add(omega);
 }  // end setup() =====================================================================
@@ -51,7 +51,6 @@ void draw() {
   p2.display();
   
   // BALL --------------------------------------------------------------------------------------------------------------
-  b.move();
   b.display();
   b.checkBoundaryCollision();
   checkCollision();
@@ -126,15 +125,21 @@ void draw() {
 
 // ================== CHECK IF BALL HITS BACK COURT ====================================================================================
 void backCourt() {
-  if (b.x < (width/2 - p1.health)) {
+  if (b.x <= 0) {
+    b.reset(40, 200);
+    /*if (b.vx < 0) {
+      b.vx *= -1;
+      b.vy *= -1;
+    }*/
     p1.damage(p2.damage);
-    b.vx *= -1;
-    b.vy *= -1;
   }
-  else if (b.x > (width/2 + p2.health)) {
+  else if (b.x >= 800) {
+    b.reset(760, 200);
+    /*if (b.vx > 0) {
+      b.vx *= -1;
+      b.vy *= -1;
+    }*/
     p2.damage(p1.damage);
-    b.vx *= -1;
-    b.vy *= -1;
   }
 } // end backCourt() =========================================================================================================
  

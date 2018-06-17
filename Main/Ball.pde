@@ -5,6 +5,7 @@ class Ball {
   float rad;
   float vx = 0;
   float vy = 0;
+  boolean start = false;
  
   // ======================== CONSTRUCTORS ================================================
   Ball(float xin, float yin, float d) {
@@ -19,6 +20,11 @@ class Ball {
   void move() {
     x += vx;
     y += vy;
+  }
+  void reset(int resetX, int resetY){
+    x = resetX;
+    y = resetY;
+    start = false;
   }
   
   // =================== CHECK BOUNDARY COLLISION ================================================
@@ -48,6 +54,12 @@ class Ball {
     fill(204);
     stroke(204);
     ellipse(x, y, rad*2, rad*2);
+    if (mousePressed){
+      start = true;
+    }
+    if (start){
+      move();
+    }
   }
   
 } // ================================================================================================
